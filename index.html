@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<title>Название</title>
+<style type="text/css" id="vbulletin_css">
+.container {
+	margin: auto;
+	max-width: 900px;
+}
+.video-block {
+  float: left;
+  width: 100%;
+  /*position: absolute;*/
+  /*top: 0;*/
+  /*left: 0;*/
+}
+.video {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+  background-image: url(slide-1.jpg);
+  background-repeat: no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}
+.utube-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-left: -30px;
+  margin-top: -30px;
+  z-index: 100;
+}
+.utube-button a {
+  display: block;
+  color: #fff;
+  background: #f3d221;
+  font-size: 40px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #f3d221;
+  border-radius: 50%;
+}
+.utube-button a:before {
+  content: '';
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-left: 20px solid #373d40;
+  border-bottom: 10px solid transparent;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -10px;
+}
+#popupVid {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+}
+#popupVid iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 200;
+  border: none;
+}
+.close-video {
+  position: relative;
+  z-index: 300;
+  top: 10px;
+  left: 10px;
+  color: #fff;
+  font-size: 13px;
+  text-shadow: 0 1px 2px #000;
+  font-family: 'Jura', sans-serif;
+}
+.close-video span {
+  width: 30px;
+  height: 30px;
+  background: #aaa;
+  position: absolute;
+}
+.close-video span:before {
+  border-top: 2px solid #fff;
+}
+</style>
+</head>
+ 
+<body>
+<div class="container">
+	<div class="video-block">                  
+	    <div class="video">
+			<p class="utube-button"><a href="javascript:;" onClick="toggleVideo();"></a></p>
+			<div id="popupVid" style="display: none; position: absolute;">
+			   <iframe src="http://www.youtube.com/embed/pKkwCQpoxQc?showinfo=0&rel=0&modestbranding=0&enablejsapi=1" allowfullscreen></iframe>
+			   <a class="close-video" href="javascript:;" onClick="toggleVideo('hide');">Закрыть</a>
+			</div>
+	    </div>
+	</div>
+</div>
+</body>
+<script type="text/javascript">
+
+	function toggleVideo(state) {
+    // if state == 'hide', hide. Else: show video
+    var div = document.getElementById("popupVid");
+    var iframe = div.getElementsByTagName("iframe")[0].contentWindow;
+    div.style.display = state == 'hide' ? 'none' : '';
+    func = state == 'hide' ? 'pauseVideo' : 'playVideo';
+    iframe.postMessage('{"event":"command","func":"' + func + '","args":""}', '*');
+}
+
+</script>
+</html>
+
